@@ -1,0 +1,12 @@
+Chrome App Extension Sample project:
+https://github.com/firebase/quickstart-js/tree/master/auth/chromextension
+
+Chrome Extension Developer Dashboard:
+https://chrome.google.com/webstore/developer/dashboard
+
+Google API Console (Google OAuth)
+https://console.developers.google.com/apis/credentials/oauthclient?project=_&pli=1
+
+Firebase:
+https://console.firebase.google.com/project/luminosity-4dc48/overview
+

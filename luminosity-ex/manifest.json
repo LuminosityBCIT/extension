@@ -1,0 +1,29 @@
+{
+  "manifest_version": 2,
+  "name": "Luminosity Bookmark",
+  "description": "Luminosity Bookmark Chrome Extension",
+  "version": "0.1",
+  "icons": {
+    "128": "luminosity-logo.png"
+  },
+  "browser_action": {
+    "default_icon": "luminosity-logo.png",
+    "default_popup": "credentials.html"
+  },
+  "background": {
+    "page": "background.html"
+  },
+  "permissions": [
+    "identity",
+    "bookmarks"
+  ],
+  "content_security_policy":"script-src 'self' https://www.gstatic.com/ https://*.firebaseio.com https://www.googleapis.com; object-src 'self'",
+  "oauth2": {
+    "client_id": "314360845682-qk6r8nksmduncf8rvfciu9d6f672i52q.apps.googleusercontent.com",
+    "scopes": [
+      "https://www.googleapis.com/auth/userinfo.email",
+      "https://www.googleapis.com/auth/userinfo.profile"
+    ]
+  },
+  "key": "MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAuxkH/RqsYN/KXmNPU1e//62rbZICvODa4Pe5mUChH8MxB83OjlW+bNZL5jkXQWBawTmHgyrG8VeTlCYkVq9k9FpB7T28N4ev2M0MRSQ+ogqbpLL6qxJ5k4DH+Dku8ADdodiWGXlI1o0rNBzJZIomua4gAzLdL4/dspp9onEFd5tZxuRtuv4DiEboZS1Lrgg4nk8za4Xl7nCHpobmHYhKaPXT+fQxSQms1MOonOe/lKLozhoAOYZhMyIPGd9gNuWACOQrhYXogFR3VEFZc+zpGenxrBjHLC17LX2OSf231rORuZb6d4Hs+7Z6pwMkJ2M6zpyfbzUjYhPz6xSTmrDokQIDAQAB"
+}
