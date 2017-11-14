@@ -76,13 +76,50 @@ function initApp() {
       for (var i = 0; i < simplifiedJSON.length; i++)
       {
           var oldBookmark = simplifiedJSON[i];
-          var bookmark = {};
+          
+          //
+          //    If bookmark element is a folder, so has children
+          //
+          if (oldBookmark.children)
+          {
+              //
+              //    run forloop for children so that child bookmark can also be stored
+              //
+              for (var j = 0; j < oldBookmark.children.length; j++)
+              {
+                  var childBookMark = oldBookmark.children[j];
+                  
+                  //
+                  //    only if bookmark valid has title and url
+                  //
+                  if (childBookMark.title && childBookMark.url)
+                  {
+                      var bookmark = {};
 
-          bookmark["title"] = oldBookmark.title;
-          bookmark["url"] = oldBookmark.url;
-          bookmark["folderkey"] = "unorganized";
+                      bookmark["title"] = childBookMark.title;
+                      bookmark["url"] = childBookMark.url;
+                      bookmark["folderkey"] = "unorganized";
 
-          bookmarkData.push(bookmark);
+                      bookmarkData.push(bookmark);   
+                  }
+              }
+          }
+          else {
+              
+              //
+              //    only if bookmark valid has title and url
+              //
+              if (oldBookmark.title && oldBookmark.url)
+              {
+                  var bookmark = {};
+
+                  bookmark["title"] = oldBookmark.title;
+                  bookmark["url"] = oldBookmark.url;
+                  bookmark["folderkey"] = "unorganized";
+
+                  bookmarkData.push(bookmark); 
+              }  
+          }
       }
       //
       //  Show if it is synced or not!
