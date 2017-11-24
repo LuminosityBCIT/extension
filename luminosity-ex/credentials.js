@@ -73,6 +73,8 @@ function initApp() {
       //  
       var simplifiedJSON = bookmarkTreeNodes[0].children[0].children;
       var bookmarkData = [];
+      var folderData = [];
+
       for (var i = 0; i < simplifiedJSON.length; i++)
       {
           var oldBookmark = simplifiedJSON[i];
@@ -82,6 +84,23 @@ function initApp() {
           //
           if (oldBookmark.children)
           {
+              //
+              //  generate random folder key
+              //
+              var thisFolderKey = makeid();
+
+              //
+              // Create Folder data 
+              //
+              var thisFolder = {};
+              thisFolder["folder_name"] = oldBookmark.title;
+              thisFolder["folder_key"] = thisFolderKey;
+
+              //
+              //  save it in array
+              //
+              folderData.push(thisFolder);
+
               //
               //    run forloop for children so that child bookmark can also be stored
               //
@@ -98,7 +117,11 @@ function initApp() {
 
                       bookmark["title"] = childBookMark.title;
                       bookmark["url"] = childBookMark.url;
-                      bookmark["folderkey"] = "unorganized";
+
+                      //
+                      //  Store with folder key that was generated
+                      //
+                      bookmark["folderkey"] = thisFolderKey;
 
                       bookmarkData.push(bookmark);   
                   }
@@ -125,7 +148,7 @@ function initApp() {
       //  Show if it is synced or not!
       //
       document.getElementById('bookmarkdetail').textContent = "Bookmark was successfully synced";//JSON.stringify(bookmarkData, null, ' ');
-      
+
       //
       //  Firebase Database synchronization
       //
@@ -133,15 +156,34 @@ function initApp() {
       if (firebase.auth().currentUser)
       {
         //
-        //  Database "users/USER_ID/bookmark/JSON_BOOKMARK_DATA"
+        //  Database "users/USER_ID/bookmarks/JSON_BOOKMARK_DATA"
         //
         database.ref("users/" + firebase.auth().currentUser.uid + "/bookmarks").set(bookmarkData);
+
+        //
+        //  Database "users/USER_ID/folders/JSON_ARRAY_FOLDER_DATA"
+        //
+        database.ref("users/" + firebase.auth().currentUser.uid + "/folders").set(folderData);
       }
     });
   });
   //
   //  End of Kaylie's modification
   //  
+}
+
+//
+//  A method to generate random string for folder key
+//  Reference: https://stackoverflow.com/questions/1349404/generate-random-string-characters-in-javascript
+//
+function makeid() {
+  var text = "";
+  var possible = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
+
+  for (var i = 0; i < 20; i++)
+    text += possible.charAt(Math.floor(Math.random() * possible.length));
+
+  return text;
 }
 
 /**
